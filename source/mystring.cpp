@@ -168,7 +168,7 @@ char* myStrdup(const char *str) {
         return NULL;
     }
 
-    size_t size = sizeof(str);
+    size_t size = myStrlen(str) + 1;
     char *dup = (char *) calloc(size, sizeof(char));
 
     if (dup == NULL) {
