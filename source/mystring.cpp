@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <assert.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "../include/mystring.h"
 
 size_t myStrlen(const char* str) {
@@ -162,9 +163,7 @@ char* myFgets(char *str, int n, FILE *stream) {
     return (i == 0 && c == EOF) ? NULL : str;
 }
 
-char* myStrdup(const char *src) {
-    assert(src != NULL);
-
+char* myStrdup(const char *str) {
     if (str == NULL) {
         return NULL;
     }
@@ -176,13 +175,13 @@ char* myStrdup(const char *src) {
         return NULL;
     }
 
-    strcpy(dup, str);
+    myStrcpy(dup, str);
 
     return dup;
 }
 
 size_t myGetlen(const char *str, size_t max_len) {
-    assert(src != NULL);
+    assert(str != NULL);
     size_t len = 0;
 
     while (len < max_len && *str++) {
