@@ -6,23 +6,45 @@
 size_t myStrlen(const char* str) {
     assert(str != NULL);
     size_t len = 0;
-    while (*str++) len++;
+
+    while (*str++) {
+        len++;
+    }
+
     return len;
 }
 
 char* myStrcpy(char* dst, const char* src) {
     assert(dst != NULL && src != NULL);
     char* start = dst;
+
     while (*src) {
         *dst++ = *src++;
     }
     *dst = '\0';
+
+    return start;
+}
+
+char* myStrncpy(char *dst, const char *src, size_t n) {
+    assert(dst != NULL && src != NULL && n != NULL);
+    char *start = dst;
+
+    while (n && (*dst++ = *src++)) {
+        n--;
+    }
+
+    while (n--) {
+        *dst++ = '\0';
+    }
+
     return start;
 }
 
 char* myStrconn(char* dst, const char* src) {
     assert(dst != NULL && src != NULL);
     char* start = dst + myStrlen(dst);
+
     myStrcpy(start, src);
     return dst;
 }
@@ -67,7 +89,6 @@ char* myStrtok(char* str, const char* delim) {
     return start;
 }
 
-
 int myStrcmp(const char* str1, const char* str2) {
     assert(str1 != NULL && str2 != NULL);
 
@@ -86,3 +107,87 @@ int myStrcmp(const char* str1, const char* str2) {
     return (unsigned char)tolower(*str1) - (unsigned char)tolower(*str2);
 }
 
+int myPuts(const char *str) {
+    assert(str != NULL);
+
+    if (!str) {
+        return EOF;
+    }
+
+    while (*str) {
+        if (putchar(*str++) == EOF) {
+            return EOF;
+        }
+    }
+
+    if (putchar('\n') == EOF) {
+        return EOF;
+    }
+
+    return 0;
+}
+
+
+char* myStrcut(char *str, int c) {
+    assert(str != NULL);
+    char *pos = myStrchr(str, c);
+
+    if (pos) {
+        *pos = '\0';
+    }
+
+    return str;
+}
+
+char* myStrncut(char *str, size_t n) {
+    assert(str != NULL);
+
+    if (n < myStrlen(str)) {
+        str[n] = '\0';
+    }
+
+    return str;
+}
+
+char* myFgets(char *str, int n, FILE *stream) {
+    assert(str != NULL);
+    int c, i = 0;
+
+    while (i < n - 1 && (c = fgetc(stream)) != EOF) {
+        str[i++] = (char)c;
+        if (c == '\n') break;
+    }
+
+    str[i] = '\0';
+    return (i == 0 && c == EOF) ? NULL : str;
+}
+
+char* myStrdup(const char *src) {
+    assert(src != NULL);
+
+    if (str == NULL) {
+        return NULL;
+    }
+
+    size_t size = sizeof(str);
+    char *dup = (char *) calloc(size, sizeof(char));
+
+    if (dup == NULL) {
+        return NULL;
+    }
+
+    strcpy(dup, str);
+
+    return dup;
+}
+
+size_t myGetlen(const char *str, size_t max_len) {
+    assert(src != NULL);
+    size_t len = 0;
+
+    while (len < max_len && *str++) {
+        len++;
+    }
+
+    return len;
+}
